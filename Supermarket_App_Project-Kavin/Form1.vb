@@ -109,7 +109,7 @@ Public Class Form1
                     If printReceiptMsg = vbYes Then
                         ShowReceipt()
                     End If
-                    MsgBox("Thank you for using this app!")
+                    MsgBox("Thank you for using this app.!")
                 End If
             End If
         End If
