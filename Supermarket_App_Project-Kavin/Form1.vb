@@ -59,15 +59,7 @@ Public Class Form1
         If paymentType = "" Then
             MsgBox("Please select a payment option.", vbOKOnly + vbExclamation)
         ElseIf paymentType = "Debit Card" Then
-            If MaskedTextBox2.Text = "012-345 6789" Then
-                MsgBox("You get a 5% discount", vbOKOnly)
-                discountedPrice = totalPrice - (5 / 100 * totalPrice)
-                formattedDiscountPrice = Format(discountedPrice, "Currency")
-                TotalPriceLabel.Text = formattedDiscountPrice
-            Else
-                formattedDiscountPrice = TotalPriceLabel.Text
-            End If
-
+            MemberDiscount()
             AmountPaidTextBox.Text = TotalPriceLabel.Text
             amountPaid = AmountPaidTextBox.Text
             formattedAmountPaid = Format(amountPaid, "Currency")
@@ -90,14 +82,7 @@ Public Class Form1
                     AmountPaidTextBox.BackColor = Color.Red
                     MsgBox("Please ensure that your payment is greater than the total price.", vbOKOnly + vbCritical)
                 Else
-                    If MaskedTextBox2.Text = "012-345 6789" Then
-                        MsgBox("You get a 5% discount", vbOKOnly)
-                        discountedPrice = totalPrice - (5 / 100 * totalPrice)
-                        formattedDiscountPrice = Format(discountedPrice, "Currency")
-                        TotalPriceLabel.Text = formattedDiscountPrice
-                    Else
-                        formattedDiscountPrice = TotalPriceLabel.Text
-                    End If
+                    MemberDiscount()
                     balance = amountPaid - totalPrice
                     formattedAmountPaid = Format(amountPaid, "Currency")
                     AmountPaidTextBox.Text = formattedAmountPaid
@@ -109,7 +94,7 @@ Public Class Form1
                     If printReceiptMsg = vbYes Then
                         ShowReceipt()
                     End If
-                    MsgBox("Thank you for using this app.!")
+                    MsgBox("Thank you for using this app!")
                 End If
             End If
         End If
@@ -157,5 +142,15 @@ Public Class Form1
                vbCrLf &
                "Amount Paid: " & formattedAmountPaid & vbCrLf &
                "Balance: " & formattedBalance & vbCrLf)
+    End Sub
+    Private Sub MemberDiscount()
+        If MaskedTextBox2.Text = "012-345 6789" Then
+            MsgBox("You get a 5% discount", vbOKOnly)
+            discountedPrice = totalPrice - (5 / 100 * totalPrice)
+            formattedDiscountPrice = Format(discountedPrice, "Currency")
+            TotalPriceLabel.Text = formattedDiscountPrice
+        Else
+            formattedDiscountPrice = TotalPriceLabel.Text
+        End If
     End Sub
 End Class
