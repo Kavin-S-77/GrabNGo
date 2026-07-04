@@ -36,20 +36,22 @@ Partial Class Form1
         Me.TotalPriceLabel = New System.Windows.Forms.Label()
         Me.BalanceLabel = New System.Windows.Forms.Label()
         Me.SettleButton = New System.Windows.Forms.Button()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.EWalletRDB = New System.Windows.Forms.RadioButton()
+        Me.DebitCardRDB = New System.Windows.Forms.RadioButton()
+        Me.CashRDB = New System.Windows.Forms.RadioButton()
         Me.AmountPaidTextBox = New System.Windows.Forms.TextBox()
         Me.NumericUpDownChicken = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDownMango = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDownOrange = New System.Windows.Forms.NumericUpDown()
-        Me.MaskedTextBox2 = New System.Windows.Forms.MaskedTextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.MemberMaskedTextBox = New System.Windows.Forms.MaskedTextBox()
+        Me.PlasticButton = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.NoOfPlasticLabel = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.clockLabel = New System.Windows.Forms.Label()
+        Me.ResetButton = New System.Windows.Forms.Button()
+        Me.Label8 = New System.Windows.Forms.Label()
         CType(Me.NumericUpDownChicken, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownMango, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownOrange, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -181,41 +183,42 @@ Partial Class Form1
         Me.SettleButton.Text = "Settle"
         Me.SettleButton.UseVisualStyleBackColor = True
         '
-        'RadioButton1
+        'EWalletRDB
         '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(801, 118)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(113, 30)
-        Me.RadioButton1.TabIndex = 16
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "E-Wallet"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.EWalletRDB.AutoSize = True
+        Me.EWalletRDB.Location = New System.Drawing.Point(801, 118)
+        Me.EWalletRDB.Name = "EWalletRDB"
+        Me.EWalletRDB.Size = New System.Drawing.Size(113, 30)
+        Me.EWalletRDB.TabIndex = 16
+        Me.EWalletRDB.TabStop = True
+        Me.EWalletRDB.Text = "E-Wallet"
+        Me.EWalletRDB.UseVisualStyleBackColor = True
         '
-        'RadioButton2
+        'DebitCardRDB
         '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(801, 180)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(134, 30)
-        Me.RadioButton2.TabIndex = 17
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Debit Card"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.DebitCardRDB.AutoSize = True
+        Me.DebitCardRDB.Location = New System.Drawing.Point(801, 180)
+        Me.DebitCardRDB.Name = "DebitCardRDB"
+        Me.DebitCardRDB.Size = New System.Drawing.Size(134, 30)
+        Me.DebitCardRDB.TabIndex = 17
+        Me.DebitCardRDB.TabStop = True
+        Me.DebitCardRDB.Text = "Debit Card"
+        Me.DebitCardRDB.UseVisualStyleBackColor = True
         '
-        'RadioButton3
+        'CashRDB
         '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(801, 235)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(81, 30)
-        Me.RadioButton3.TabIndex = 18
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "Cash"
-        Me.RadioButton3.UseVisualStyleBackColor = True
+        Me.CashRDB.AutoSize = True
+        Me.CashRDB.Location = New System.Drawing.Point(801, 235)
+        Me.CashRDB.Name = "CashRDB"
+        Me.CashRDB.Size = New System.Drawing.Size(81, 30)
+        Me.CashRDB.TabIndex = 18
+        Me.CashRDB.TabStop = True
+        Me.CashRDB.Text = "Cash"
+        Me.CashRDB.UseVisualStyleBackColor = True
         '
         'AmountPaidTextBox
         '
+        Me.AmountPaidTextBox.BackColor = System.Drawing.Color.White
         Me.AmountPaidTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AmountPaidTextBox.Location = New System.Drawing.Point(629, 115)
         Me.AmountPaidTextBox.Margin = New System.Windows.Forms.Padding(6)
@@ -244,24 +247,24 @@ Partial Class Form1
         Me.NumericUpDownOrange.Size = New System.Drawing.Size(120, 32)
         Me.NumericUpDownOrange.TabIndex = 28
         '
-        'MaskedTextBox2
+        'MemberMaskedTextBox
         '
-        Me.MaskedTextBox2.BeepOnError = True
-        Me.MaskedTextBox2.Location = New System.Drawing.Point(709, 317)
-        Me.MaskedTextBox2.Mask = "000-000 0000"
-        Me.MaskedTextBox2.Name = "MaskedTextBox2"
-        Me.MaskedTextBox2.RejectInputOnFirstFailure = True
-        Me.MaskedTextBox2.Size = New System.Drawing.Size(173, 32)
-        Me.MaskedTextBox2.TabIndex = 30
+        Me.MemberMaskedTextBox.BeepOnError = True
+        Me.MemberMaskedTextBox.Location = New System.Drawing.Point(709, 317)
+        Me.MemberMaskedTextBox.Mask = "000-000 0000"
+        Me.MemberMaskedTextBox.Name = "MemberMaskedTextBox"
+        Me.MemberMaskedTextBox.RejectInputOnFirstFailure = True
+        Me.MemberMaskedTextBox.Size = New System.Drawing.Size(173, 32)
+        Me.MemberMaskedTextBox.TabIndex = 30
         '
-        'Button1
+        'PlasticButton
         '
-        Me.Button1.Location = New System.Drawing.Point(107, 320)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(246, 57)
-        Me.Button1.TabIndex = 31
-        Me.Button1.Text = "Add Plastic Bag(0.20)"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.PlasticButton.Location = New System.Drawing.Point(107, 320)
+        Me.PlasticButton.Name = "PlasticButton"
+        Me.PlasticButton.Size = New System.Drawing.Size(246, 57)
+        Me.PlasticButton.TabIndex = 31
+        Me.PlasticButton.Text = "Add Plastic Bag(0.20)"
+        Me.PlasticButton.UseVisualStyleBackColor = True
         '
         'Label7
         '
@@ -306,24 +309,44 @@ Partial Class Form1
         Me.clockLabel.Text = "Time"
         Me.clockLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'ResetButton
+        '
+        Me.ResetButton.Location = New System.Drawing.Point(12, 9)
+        Me.ResetButton.Name = "ResetButton"
+        Me.ResetButton.Size = New System.Drawing.Size(129, 44)
+        Me.ResetButton.TabIndex = 36
+        Me.ResetButton.Text = "Reset"
+        Me.ResetButton.UseVisualStyleBackColor = True
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(248, 78)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(46, 26)
+        Me.Label8.TabIndex = 37
+        Me.Label8.Text = "Qty"
+        '
         'Form1
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.SkyBlue
         Me.ClientSize = New System.Drawing.Size(967, 575)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.ResetButton)
         Me.Controls.Add(Me.clockLabel)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.NoOfPlasticLabel)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.MaskedTextBox2)
+        Me.Controls.Add(Me.PlasticButton)
+        Me.Controls.Add(Me.MemberMaskedTextBox)
         Me.Controls.Add(Me.NumericUpDownOrange)
         Me.Controls.Add(Me.NumericUpDownMango)
         Me.Controls.Add(Me.NumericUpDownChicken)
         Me.Controls.Add(Me.AmountPaidTextBox)
-        Me.Controls.Add(Me.RadioButton3)
-        Me.Controls.Add(Me.RadioButton2)
-        Me.Controls.Add(Me.RadioButton1)
+        Me.Controls.Add(Me.CashRDB)
+        Me.Controls.Add(Me.DebitCardRDB)
+        Me.Controls.Add(Me.EWalletRDB)
         Me.Controls.Add(Me.SettleButton)
         Me.Controls.Add(Me.BalanceLabel)
         Me.Controls.Add(Me.TotalPriceLabel)
@@ -362,18 +385,20 @@ Partial Class Form1
     Friend WithEvents TotalPriceLabel As Label
     Friend WithEvents BalanceLabel As Label
     Friend WithEvents SettleButton As Button
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton3 As RadioButton
+    Friend WithEvents EWalletRDB As RadioButton
+    Friend WithEvents DebitCardRDB As RadioButton
+    Friend WithEvents CashRDB As RadioButton
     Friend WithEvents AmountPaidTextBox As TextBox
     Friend WithEvents NumericUpDownChicken As NumericUpDown
     Friend WithEvents NumericUpDownMango As NumericUpDown
     Friend WithEvents NumericUpDownOrange As NumericUpDown
-    Friend WithEvents MaskedTextBox2 As MaskedTextBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents MemberMaskedTextBox As MaskedTextBox
+    Friend WithEvents PlasticButton As Button
     Friend WithEvents Label7 As Label
     Friend WithEvents NoOfPlasticLabel As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Timer1 As Timer
     Friend WithEvents clockLabel As Label
+    Friend WithEvents ResetButton As Button
+    Friend WithEvents Label8 As Label
 End Class
