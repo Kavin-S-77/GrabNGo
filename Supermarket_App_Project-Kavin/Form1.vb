@@ -65,10 +65,7 @@ Public Class Form1
             formattedAmountPaid = Format(amountPaid, "Currency")
             AmountPaidTextBox.BackColor = Color.Green
             MsgBox("Paid " & formattedAmountPaid & " through " & paymentType)
-            printReceiptMsg = MsgBox("Do you want to print a receipt?", vbYesNo + vbQuestion)
-            If printReceiptMsg = vbYes Then
-                ShowReceipt()
-            End If
+            PrintReceipt()
             MsgBox("Thank you for using this app!")
         Else
             If Not Double.TryParse(AmountPaidTextBox.Text, storedTotalPrice) Then
@@ -90,10 +87,7 @@ Public Class Form1
                     BalanceLabel.Text = formattedBalance
                     AmountPaidTextBox.BackColor = Color.Green
                     MsgBox("Paid " & formattedAmountPaid & " with balance of " & formattedBalance & " through " & paymentType)
-                    printReceiptMsg = MsgBox("Do you want to print a receipt?", vbYesNo + vbQuestion)
-                    If printReceiptMsg = vbYes Then
-                        ShowReceipt()
-                    End If
+                    PrintReceipt()
                     MsgBox("Thank you for using this app!")
                 End If
             End If
@@ -124,24 +118,28 @@ Public Class Form1
         clockLabel.Text = Format(Now, "General Date")
     End Sub
 
-    Private Sub ShowReceipt()
-        MsgBox("--RECEIPT--" & vbCrLf &
-               vbCrLf &
-               "Date: " & Format(Now, "Short Date") & vbCrLf &
-               "Time: " & Format(Now, "Long Time") & vbCrLf &
-               vbCrLf &
-               "Chicken: RM17.765     Qty: " & NumericUpDownChicken.Value & "     Amount: " & formattedChickenPrice & vbCrLf &
-               "Mango: RM7.40          Qty: " & NumericUpDownMango.Value & "     Amount: " & formattedMangoPrice & vbCrLf &
-               "Orange: RM1.362       Qty: " & NumericUpDownOrange.Value & "     Amount: " & formattedOrangePrice & vbCrLf &
-               "Plastic Bag: RM0.20    Qty: " & NoOfPlasticLabel.Text & "     Amount: " & Format(plasticBagPrice, "Currency") & vbCrLf &
-               vbCrLf &
-               "Type of Payment: " & paymentType & vbCrLf &
-               vbCrLf &
-               "Total Price: " & formattedTotalPrice & vbCrLf &
-               "Discounted Price: " & formattedDiscountPrice & vbCrLf &
-               vbCrLf &
-               "Amount Paid: " & formattedAmountPaid & vbCrLf &
-               "Balance: " & formattedBalance & vbCrLf)
+    Private Sub PrintReceipt()
+        printReceiptMsg = MsgBox("Do you want to print a receipt?", vbYesNo + vbQuestion)
+        If printReceiptMsg = vbYes Then
+            MsgBox("--RECEIPT--" & vbCrLf &
+                    vbCrLf &
+                    "Date: " & Format(Now, "Short Date") & vbCrLf &
+                    "Time: " & Format(Now, "Long Time") & vbCrLf &
+                    vbCrLf &
+                    "Chicken: RM17.765     Qty: " & NumericUpDownChicken.Value & "     Amount: " & formattedChickenPrice & vbCrLf &
+                    "Mango: RM7.40          Qty: " & NumericUpDownMango.Value & "     Amount: " & formattedMangoPrice & vbCrLf &
+                    "Orange: RM1.362       Qty: " & NumericUpDownOrange.Value & "     Amount: " & formattedOrangePrice & vbCrLf &
+                    "Plastic Bag: RM0.20    Qty: " & NoOfPlasticLabel.Text & "     Amount: " & Format(plasticBagPrice, "Currency") & vbCrLf &
+                    vbCrLf &
+                    "Type of Payment: " & paymentType & vbCrLf &
+                    vbCrLf &
+                    "Total Price: " & formattedTotalPrice & vbCrLf &
+                    "Discounted Price: " & formattedDiscountPrice & vbCrLf &
+                    vbCrLf &
+                    "Amount Paid: " & formattedAmountPaid & vbCrLf &
+                    "Balance: " & formattedBalance & vbCrLf)
+        End If
+
     End Sub
     Private Sub MemberDiscount()
         If MaskedTextBox2.Text = "012-345 6789" Then
