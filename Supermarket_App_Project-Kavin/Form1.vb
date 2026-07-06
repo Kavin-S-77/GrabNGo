@@ -7,38 +7,15 @@ Public Class Form1
     Const priceOfOneMango As Single = 7.4
     Const priceOfOneOrange As Single = 1.362
 
-    Dim amountPaid As Double
-    Dim formattedAmountPaid As String
+    Dim amountPaid, balance, memberdiscountPrice, discountPrice, totalPrice, storedTotalPrice As Double
+    Dim chickenPrice, mangoPrice, orangePrice, plasticBagPrice As Double
 
-    Dim balance As Double
-    Dim formattedBalance As String
-
-    Dim memberDiscountPrice As Double
-    Dim formattedMemberDiscountPrice As String
-    Dim discountPrice As Double
-    Dim formattedDiscountPrice As String
-
-    Dim totalPrice As Double
-    Dim storedTotalPrice As Double
-    Dim formattedTotalPrice As String
-
-    Dim receipt As String
+    Dim formattedAmountPaid, formattedBalance, formattedMemberDiscountPrice, formattedDiscountPrice, formattedTotalPrice As String
+    Dim receipt, formattedChickenPrice, formattedMangoPrice, formattedOrangePrice, formattedPlasticBagPrice, paymentType As String
     Dim colFormat As String = "{0,-25} {1,-10} {2,10}"
 
-    Dim printReceiptMsg As Integer
-    Dim resetMsg As Integer
+    Dim printReceiptMsg, resetMsg As Integer
 
-    Dim chickenPrice As Double
-    Dim formattedChickenPrice As String
-    Dim mangoPrice As Double
-    Dim formattedMangoPrice As String
-    Dim orangePrice As Double
-    Dim formattedOrangePrice As String
-
-    Dim plasticBagPrice As Double
-    Dim formattedPlasticBagPrice As String
-
-    Dim paymentType As String
     Private Sub PriceCalculationButton_Click(sender As Object, e As EventArgs) Handles PriceCalculationButton.Click
         If CheckBoxChicken.Checked = True Then
             'Calculates the price of chicken
@@ -204,23 +181,6 @@ Public Class Form1
         printReceiptMsg = MsgBox("Do you want to print a receipt?", vbYesNo + vbQuestion)
         If printReceiptMsg = vbYes Then
             MsgBox(receipt)
-            MsgBox("--RECEIPT--" & vbCrLf &
-                    vbCrLf &
-                    "Date: " & Format(Now, "Short Date") & vbCrLf &
-                    "Time: " & Format(Now, "Long Time") & vbCrLf &
-                    vbCrLf &
-                    "Chicken: RM" & priceOfOneChicken & "     Qty: " & NumericUpDownChicken.Value & "     Amount: " & formattedChickenPrice & vbCrLf &
-                    "Mango: RM" & priceOfOneMango & "          Qty: " & NumericUpDownMango.Value & "     Amount: " & formattedMangoPrice & vbCrLf &
-                    "Orange: RM" & priceOfOneOrange & "       Qty: " & NumericUpDownOrange.Value & "     Amount: " & formattedOrangePrice & vbCrLf &
-                    "Plastic Bag: RM" & priceOfOnePlasticBag & "    Qty: " & NoOfPlasticLabel.Text & "     Amount: " & Format(plasticBagPrice, "Currency") & vbCrLf &
-                    vbCrLf &
-                    "Type of Payment: " & paymentType & vbCrLf &
-                    vbCrLf &
-                    "Total Price: " & formattedTotalPrice & vbCrLf &
-                    "Discounted Price: " & formattedDiscountPrice & vbCrLf &
-                    vbCrLf &
-                    "Amount Paid: " & formattedAmountPaid & vbCrLf &
-                    "Balance: " & formattedBalance & vbCrLf)
         End If
     End Sub
     Private Sub ApplyMemberDiscount()
@@ -231,7 +191,7 @@ Public Class Form1
             memberDiscountPrice = totalPrice - (5 / 100 * totalPrice)
             formattedMemberDiscountPrice = Format(memberDiscountPrice, "Currency")
             TotalPriceLabel.Text = formattedMemberDiscountPrice
-        ElseIf MemberMaskedTextBox.Text <> "" And MemberMaskedTextBox.Text <> "012-3456789" Then
+        ElseIf MemberMaskedTextBox.MaskCompleted AndAlso MemberMaskedTextBox.Text <> "012-3456789" Then
             MsgBox("Sorry, you are not a member", vbOKOnly + vbInformation, "Member Discount")
 
         End If
