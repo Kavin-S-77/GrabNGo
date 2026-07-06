@@ -52,6 +52,8 @@ Partial Class Form1
         Me.clockLabel = New System.Windows.Forms.Label()
         Me.ResetButton = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.DiscountCodeTextBox = New System.Windows.Forms.TextBox()
         CType(Me.NumericUpDownChicken, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownMango, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownOrange, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -250,7 +252,7 @@ Partial Class Form1
         'MemberMaskedTextBox
         '
         Me.MemberMaskedTextBox.BeepOnError = True
-        Me.MemberMaskedTextBox.Location = New System.Drawing.Point(709, 317)
+        Me.MemberMaskedTextBox.Location = New System.Drawing.Point(709, 335)
         Me.MemberMaskedTextBox.Mask = "000-000 0000"
         Me.MemberMaskedTextBox.Name = "MemberMaskedTextBox"
         Me.MemberMaskedTextBox.RejectInputOnFirstFailure = True
@@ -287,7 +289,7 @@ Partial Class Form1
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(564, 320)
+        Me.Label9.Location = New System.Drawing.Point(564, 338)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(132, 26)
         Me.Label9.TabIndex = 34
@@ -327,11 +329,29 @@ Partial Class Form1
         Me.Label8.TabIndex = 37
         Me.Label8.Text = "Qty"
         '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(564, 287)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(155, 26)
+        Me.Label10.TabIndex = 38
+        Me.Label10.Text = "Discount Code"
+        '
+        'DiscountCodeTextBox
+        '
+        Me.DiscountCodeTextBox.Location = New System.Drawing.Point(725, 284)
+        Me.DiscountCodeTextBox.Name = "DiscountCodeTextBox"
+        Me.DiscountCodeTextBox.Size = New System.Drawing.Size(157, 32)
+        Me.DiscountCodeTextBox.TabIndex = 39
+        '
         'Form1
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.SkyBlue
         Me.ClientSize = New System.Drawing.Size(967, 575)
+        Me.Controls.Add(Me.DiscountCodeTextBox)
+        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.ResetButton)
         Me.Controls.Add(Me.clockLabel)
@@ -401,4 +421,6 @@ Partial Class Form1
     Friend WithEvents clockLabel As Label
     Friend WithEvents ResetButton As Button
     Friend WithEvents Label8 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents DiscountCodeTextBox As TextBox
 End Class

@@ -3,6 +3,9 @@
 Public Class Form1
 
     Const priceOfOnePlasticBag As Single = 0.2
+    Const priceOfOneChicken As Single = 17.765
+    Const priceOfOneMango As Single = 7.4
+    Const priceOfOneOrange As Single = 1.362
 
     Dim amountPaid As Double
     Dim formattedAmountPaid As String
@@ -10,12 +13,17 @@ Public Class Form1
     Dim balance As Double
     Dim formattedBalance As String
 
-    Dim discountedPrice As Double
+    Dim memberDiscountPrice As Double
+    Dim formattedMemberDiscountPrice As String
+    Dim discountPrice As Double
     Dim formattedDiscountPrice As String
 
     Dim totalPrice As Double
     Dim storedTotalPrice As Double
     Dim formattedTotalPrice As String
+
+    Dim receipt As String
+    Dim colFormat As String = "{0,-25} {1,-10} {2,10}"
 
     Dim printReceiptMsg As Integer
     Dim resetMsg As Integer
@@ -34,7 +42,7 @@ Public Class Form1
     Private Sub PriceCalculationButton_Click(sender As Object, e As EventArgs) Handles PriceCalculationButton.Click
         If CheckBoxChicken.Checked = True Then
             'Calculates the price of chicken
-            chickenPrice = 17.765 * NumericUpDownChicken.Value
+            chickenPrice = priceOfOneChicken * NumericUpDownChicken.Value
         Else
             chickenPrice = 0
         End If
@@ -42,7 +50,7 @@ Public Class Form1
 
         If CheckBoxMango.Checked = True Then
             'Calculates the price of mango
-            mangoPrice = 7.4 * NumericUpDownMango.Value
+            mangoPrice = priceOfOneMango * NumericUpDownMango.Value
         Else
             mangoPrice = 0
         End If
@@ -51,7 +59,7 @@ Public Class Form1
 
         If CheckBoxOrange.Checked = True Then
             'Calculates the price of orange
-            orangePrice = 1.362 * NumericUpDownOrange.Value
+            orangePrice = priceOfOneOrange * NumericUpDownOrange.Value
         Else
             orangePrice = 0
         End If
@@ -64,44 +72,38 @@ Public Class Form1
     End Sub
 
     Private Sub SettleButton_Click(sender As Object, e As EventArgs) Handles SettleButton.Click
+        amountPaid = totalPrice
         If paymentType = "" Then
             'Checks if the user has selected a payment option
             MsgBox("Please select a payment option.", vbOKOnly + vbExclamation)
-        ElseIf paymentType = "Debit Card" Then
-            'Undergoes the payment procedure for debit card
-            MemberDiscount()
-            AmountPaidTextBox.Text = TotalPriceLabel.Text
-            amountPaid = AmountPaidTextBox.Text
-            formattedAmountPaid = Format(amountPaid, "Currency")
-            AmountPaidTextBox.BackColor = Color.LawnGreen
-            MsgBox("Paid " & formattedAmountPaid & " through " & paymentType)
-            PrintReceipt()
-            MsgBox("Thank you for using this app!")
+        ElseIf Not Double.TryParse(AmountPaidTextBox.Text, storedTotalPrice) And AmountPaidTextBox.Text <> "" Then
+            'Checks if the amount entered is a integer or decimal
+            MsgBox("Please enter a valid number", vbOKOnly)
         Else
-            If Not Double.TryParse(AmountPaidTextBox.Text, storedTotalPrice) Then
-                'Checks if the amount entered is a integer or decimal
-                MsgBox("Please enter a valid number", vbOKOnly)
-            Else
+            ApplyMemberDiscount()
+            ApplyDiscountCode()
+            If paymentType <> "Debit Card" Then
                 amountPaid = AmountPaidTextBox.Text
-
+            Else
                 If amountPaid < totalPrice Then
                     'Changes the color to red if the amount entered is less that the total
                     AmountPaidTextBox.BackColor = Color.Red
                     MsgBox("Please ensure that your payment is greater than the total price.", vbOKOnly + vbCritical)
-                Else
-                    'Undergoes the payment procedure for cash or e-wallet 
-                    MemberDiscount()
-                    balance = amountPaid - discountedPrice
-                    formattedAmountPaid = Format(amountPaid, "Currency")
-                    AmountPaidTextBox.Text = formattedAmountPaid
-                    formattedBalance = Format(balance, "Currency")
-                    BalanceLabel.Text = formattedBalance
-                    AmountPaidTextBox.BackColor = Color.LawnGreen
-                    MsgBox("Paid " & formattedAmountPaid & " with balance of " & formattedBalance & " through " & paymentType)
-                    PrintReceipt()
-                    MsgBox("Thank you for using this app!")
                 End If
             End If
+            formattedAmountPaid = Format(amountPaid, "Currency")
+            AmountPaidTextBox.Text = formattedAmountPaid
+            balance = amountPaid - discountPrice
+            formattedBalance = Format(balance, "Currency")
+            BalanceLabel.Text = formattedBalance
+            AmountPaidTextBox.BackColor = Color.LawnGreen
+            If paymentType = "Debit Card" Then
+                MsgBox("Paid " & formattedAmountPaid & " through " & paymentType)
+            Else
+                MsgBox("Paid " & formattedAmountPaid & " with balance of " & formattedBalance & " through " & paymentType)
+            End If
+            PrintReceipt()
+            MsgBox("Thank you for using this app!")
         End If
 
     End Sub
@@ -127,25 +129,27 @@ Public Class Form1
 
     Private Sub ResetButton_Click(sender As Object, e As EventArgs) Handles ResetButton.Click
         resetMsg = MsgBox("All progress will be lost" & vbCrLf &
-                          "Do you wish to continue?", vbYesNo)
+                          "Do you wish to continue?", vbYesNo + vbQuestion)
         If resetMsg = vbYes Then
             amountPaid = 0
             formattedAmountPaid = ""
             balance = 0
             formattedBalance = ""
-            discountedPrice = 0
+            discountPrice = 0
             formattedDiscountPrice = ""
             totalPrice = 0
             storedTotalPrice = 0
             formattedTotalPrice = ""
             printReceiptMsg = 0
+            memberDiscountPrice = 0
+            formattedMemberDiscountPrice = ""
 
             orangePrice = 0
             formattedOrangePrice = ""
             mangoPrice = 0
             formattedMangoPrice = ""
-            orangePrice = 0
-            formattedOrangePrice = ""
+            chickenPrice = 0
+            formattedChickenPrice = ""
             plasticBagPrice = 0
             formattedPlasticBagPrice = ""
             paymentType = ""
@@ -162,6 +166,7 @@ Public Class Form1
             BalanceLabel.Text = "0"
             NoOfPlasticLabel.Text = "0"
             MemberMaskedTextBox.Text = ""
+            DiscountCodeTextBox.Text = ""
             EWalletRDB.Checked = False
             DebitCardRDB.Checked = False
             CashRDB.Checked = False
@@ -174,17 +179,40 @@ Public Class Form1
     End Sub
 
     Private Sub PrintReceipt()
+        receipt = "--RECEIPT--" & vbCrLf & vbCrLf &
+                  "Date: " & Format(Now, "Short Date") & vbCrLf &
+                  "Time: " & Format(Now, "Long Time") & vbCrLf & vbCrLf
+        If NumericUpDownChicken.Value > 0 Then
+            receipt += String.Format(colFormat, "Chicken: " & Format(priceOfOneChicken, "Currency"), "Qty: " & NumericUpDownChicken.Value, "Amount: " & formattedChickenPrice & vbCrLf)
+        End If
+        If NumericUpDownMango.Value > 0 Then
+            receipt += String.Format(colFormat, "Mango: " & Format(priceOfOneMango, "Currency"), "Qty: " & NumericUpDownMango.Value, "Amount: " & formattedMangoPrice & vbCrLf)
+        End If
+        If NumericUpDownOrange.Value > 0 Then
+            receipt += String.Format(colFormat, "Orange: " & Format(priceOfOneOrange, "Currency"), "Qty: " & NumericUpDownOrange.Value, "Amount: " & formattedOrangePrice & vbCrLf)
+        End If
+        If NoOfPlasticLabel.Text > 0 Then
+            receipt += String.Format(colFormat, "Plastic Bag:" & Format(priceOfOnePlasticBag, "Currency"), "Qty: " & NoOfPlasticLabel.Text, "Amount: " & Format(plasticBagPrice, "Currency") & vbCrLf)
+        End If
+        receipt += vbCrLf & "Type of Payment: " & paymentType & vbCrLf & vbCrLf &
+                   "Total Price: " & formattedTotalPrice & vbCrLf &
+                   "Discounted Price: " & formattedDiscountPrice & vbCrLf & vbCrLf &
+                   "Amount Paid: " & formattedAmountPaid & vbCrLf
+        If paymentType <> "Debit Card" Then
+            receipt += "Balance: " & formattedBalance & vbCrLf
+        End If
         printReceiptMsg = MsgBox("Do you want to print a receipt?", vbYesNo + vbQuestion)
         If printReceiptMsg = vbYes Then
+            MsgBox(receipt)
             MsgBox("--RECEIPT--" & vbCrLf &
                     vbCrLf &
                     "Date: " & Format(Now, "Short Date") & vbCrLf &
                     "Time: " & Format(Now, "Long Time") & vbCrLf &
                     vbCrLf &
-                    "Chicken: RM17.765     Qty: " & NumericUpDownChicken.Value & "     Amount: " & formattedChickenPrice & vbCrLf &
-                    "Mango: RM7.40          Qty: " & NumericUpDownMango.Value & "     Amount: " & formattedMangoPrice & vbCrLf &
-                    "Orange: RM1.362       Qty: " & NumericUpDownOrange.Value & "     Amount: " & formattedOrangePrice & vbCrLf &
-                    "Plastic Bag: RM0.20    Qty: " & NoOfPlasticLabel.Text & "     Amount: " & Format(plasticBagPrice, "Currency") & vbCrLf &
+                    "Chicken: RM" & priceOfOneChicken & "     Qty: " & NumericUpDownChicken.Value & "     Amount: " & formattedChickenPrice & vbCrLf &
+                    "Mango: RM" & priceOfOneMango & "          Qty: " & NumericUpDownMango.Value & "     Amount: " & formattedMangoPrice & vbCrLf &
+                    "Orange: RM" & priceOfOneOrange & "       Qty: " & NumericUpDownOrange.Value & "     Amount: " & formattedOrangePrice & vbCrLf &
+                    "Plastic Bag: RM" & priceOfOnePlasticBag & "    Qty: " & NoOfPlasticLabel.Text & "     Amount: " & Format(plasticBagPrice, "Currency") & vbCrLf &
                     vbCrLf &
                     "Type of Payment: " & paymentType & vbCrLf &
                     vbCrLf &
@@ -195,17 +223,33 @@ Public Class Form1
                     "Balance: " & formattedBalance & vbCrLf)
         End If
     End Sub
-    Private Sub MemberDiscount()
+    Private Sub ApplyMemberDiscount()
+        formattedMemberDiscountPrice = TotalPriceLabel.Text
+        memberDiscountPrice = totalPrice
         If MemberMaskedTextBox.Text = "012-345 6789" Then
-            MsgBox("You get a 5% discount", vbOKOnly)
-            discountedPrice = totalPrice - (5 / 100 * totalPrice)
-            formattedDiscountPrice = Format(discountedPrice, "Currency")
-            TotalPriceLabel.Text = formattedDiscountPrice
-        Else
-            formattedDiscountPrice = TotalPriceLabel.Text
-            discountedPrice = totalPrice
-        End If
-    End Sub
+            MsgBox("You get a 5% discount", vbOKOnly + vbInformation, "Member Discount")
+            memberDiscountPrice = totalPrice - (5 / 100 * totalPrice)
+            formattedMemberDiscountPrice = Format(memberDiscountPrice, "Currency")
+            TotalPriceLabel.Text = formattedMemberDiscountPrice
+        ElseIf MemberMaskedTextBox.Text <> "" And MemberMaskedTextBox.Text <> "012-3456789" Then
+            MsgBox("Sorry, you are not a member", vbOKOnly + vbInformation, "Member Discount")
 
+        End If
+
+    End Sub
+    Private Sub ApplyDiscountCode()
+        formattedDiscountPrice = formattedMemberDiscountPrice
+        discountPrice = memberDiscountPrice
+        If DiscountCodeTextBox.Text = "DISCOUNT5" Then
+            MsgBox("You get a 5% discount", vbOKOnly + vbInformation, "Discount Code")
+            discountPrice = memberDiscountPrice - (5 / 100 * totalPrice)
+            formattedDiscountPrice = Format(discountPrice, "Currency")
+            TotalPriceLabel.Text = formattedDiscountPrice
+        ElseIf DiscountCodeTextBox.Text <> "" And DiscountCodeTextBox.Text <> "DISCOUNT5" Then
+            MsgBox("This discount code is not valid", vbOKOnly + vbInformation, "Discount Code")
+
+        End If
+
+    End Sub
 
 End Class
