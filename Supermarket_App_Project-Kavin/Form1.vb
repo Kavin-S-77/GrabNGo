@@ -49,7 +49,7 @@ Public Class Form1
     End Sub
 
     Private Sub SettleButton_Click(sender As Object, e As EventArgs) Handles SettleButton.Click
-        amountPaid = totalPrice
+
         If paymentType = "" Then
             'Checks if the user has selected a payment option
             MsgBox("Please select a payment option.", vbOKOnly + vbExclamation)
@@ -59,10 +59,11 @@ Public Class Form1
         Else
             ApplyMemberDiscount()
             ApplyDiscountCode()
+            amountPaid = discountPrice
             If paymentType <> "Debit Card" Then
                 amountPaid = AmountPaidTextBox.Text
             Else
-                If amountPaid < totalPrice Then
+                If amountPaid < discountPrice Then
                     'Changes the color to red if the amount entered is less that the total
                     AmountPaidTextBox.BackColor = Color.Red
                     MsgBox("Please ensure that your payment is greater than the total price.", vbOKOnly + vbCritical)
